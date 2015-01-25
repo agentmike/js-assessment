@@ -20,7 +20,10 @@ define(function() {
     },
 
     removeWithoutCopy : function(arr, item) {
-
+        arr.forEach(function(elem,i) {
+            if (elem === item) { arr.splice(i,1); }
+        });
+        return arr;
     },
 
     append : function(arr, item) {
@@ -71,7 +74,9 @@ define(function() {
             } else {
                 map[elem]++;
             }
-            if (map[elem] > 1) array.splice(index,1);
+        });
+        map.forEach(function(key,value) {
+            arr.splice(value,1);
         });
         return arr;
 
@@ -79,11 +84,20 @@ define(function() {
     },
 
     square : function(arr) {
-
+        arr=arr.map(function(elem) {
+            return elem*elem;
+        });
+        return arr;
     },
 
     findAllOccurrences : function(arr, target) {
-
+        var result = [];
+        arr.forEach(function(elem,index) {
+            if (target === elem) {
+                result.push(index);
+            }
+        });
+        return result;
     }
   };
 });

@@ -11,6 +11,14 @@ define(function() {
       //
       // otherwise the function should return the number, or false if no number
       // was provided or the value provided is not a number
+
+      var result = '';
+      if (num %3 === 0) result += 'fizz';
+      if (num %5 === 0) result += 'buzz';
+      if (result !== '') return result;
+
+      if (typeof num === 'number') return num;
+      return false;
     }
   };
 });
