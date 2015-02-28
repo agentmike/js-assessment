@@ -13,16 +13,15 @@ define(function() {
     },
 
     remove : function(arr, item) {
-        arr.forEach(function(elem,i,array) {
-            if (elem === item) { array.splice(i,1); }
-        });
-        return arr;
+        return this.removeWithoutCopy(arr,item);
     },
 
     removeWithoutCopy : function(arr, item) {
-        arr.forEach(function(elem,i) {
-            if (elem === item) { arr.splice(i,1); }
-        });
+        for (var i=arr.length-1;i>=0;i--) {
+            if (arr[i] === item) {
+                arr.splice(i,1);
+            }
+        }
         return arr;
     },
 
@@ -68,6 +67,7 @@ define(function() {
     duplicates : function(arr) {
         var map = {};
         var self = this;
+        var result = [];
         arr.forEach(function(elem,index,array) {
             if (typeof map[elem] === 'undefined') {
                 map[elem] = 1;
@@ -75,10 +75,13 @@ define(function() {
                 map[elem]++;
             }
         });
-        map.forEach(function(key,value) {
-            arr.splice(value,1);
-        });
-        return arr;
+        for (var elem in map) {
+            if (map[elem] > 1) {
+                result.push(elem);
+            }
+        }
+        
+        return result;
 
 
     },

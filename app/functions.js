@@ -50,15 +50,36 @@ define(function() {
     },
 
     callIt : function(fn) {
+      var args = [];
+      for (var i =1;i<arguments.length;i++) {
+        args.push(arguments[i]);
+      }
+      fn.apply(this,args);
 
     },
 
     partialUsingArguments : function(fn) {
-
+      var args=[];
+      for (var i =1;i<arguments.length;i++) {
+        args.push(arguments[i]);
+      }
+      return function() {
+          for (var i =0;i<arguments.length;i++) {
+            args.push(arguments[i]);
+          }
+          return fn.apply(this,args);
+      }
     },
 
     curryIt : function(fn) {
-
+      if (arguments.length<1) {
+        return this;
+      }
+      var cur = this;
+      var args = Array.prototype.slice.call(arguments);
+      return function(x) {
+        return cur.apply(this,args.concat(Array.prototype.slice.call(arguments)));
+      }
     }
   };
 });
